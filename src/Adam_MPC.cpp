@@ -28,6 +28,7 @@ Adam_MPC::Adam_MPC(Matrix<double, num_state_variables, num_state_variables> A, M
 	gradient_square_past.setZero();
 	gradient_past_tilda.setZero();
 	gradient_square_past_tilda.setZero();
+	B_x_u.setZero();
 	epsilon = 0.04;
 	rho1 = 0.9;
 	rho2 = 0.999;
@@ -105,6 +106,7 @@ Matrix<double, 2 * mpc_control_horizon, 1>& Adam_MPC::Evaluate(Matrix<double, 2 
 			case 4:
 				u << x(0 * control_horizon + (i), 0), x(0 * control_horizon + (i), 0),
 					x(1 * control_horizon + (i), 0), -x(1 * control_horizon + (i), 0);
+				B_x_u = B_ * u;
 				break;
 			default:
 				break;
@@ -112,7 +114,7 @@ Matrix<double, 2 * mpc_control_horizon, 1>& Adam_MPC::Evaluate(Matrix<double, 2 
 
 
 
-			x_states.block(0, i + 1, x0_.rows(), x0_.cols()) = (A_ * x_states.block(0, i, x0_.rows(), x0_.cols()) + B_ * u).eval();
+			x_states.block(0, i + 1, x0_.rows(), x0_.cols()) = (A_ * x_states.block(0, i, x0_.rows(), x0_.cols()) + B_x_u).eval();
 			lambdas_x.block(0, i, x0_.rows(), x0_.cols()) = -1 * x_ss_ + x_states.block(0, i, x0_.rows(), x0_.cols());
 
 

@@ -71,7 +71,7 @@ private:
 	Matrix<double, num_state_variables, num_manipulated_variables> B_;
 	Matrix<double, num_manipulated_variables, num_manipulated_variables> R_, R_delta_, scale_MV_inv;
 	Matrix<double, num_state_variables, num_state_variables> Q_, Q_final_, scale_OV_inv;
-	Matrix<double, num_state_variables, 1> x_ss_, disturbance_, insecure_, x0_;
+	Matrix<double, num_state_variables, 1> x_ss_, disturbance_, insecure_, x0_, B_x_u;
 	Matrix<double, num_manipulated_variables, 1> u_ss_, u_prev_, u, u_past, u_current, dummy_u;
 	Matrix<double, mpc_control_horizon*num_heuristic_variables, num_cost_functions> gradients, gradient_past, gradient_square_past, gradient_past_tilda, gradient_square_past_tilda ;
 	Matrix<double, num_state_variables, prediction_horizon * num_manipulated_variables> A_pow_B_cache;
