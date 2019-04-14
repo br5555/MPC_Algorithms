@@ -34,6 +34,7 @@ RMS_Prop_MPC::RMS_Prop_MPC(Matrix<double, num_state_variables, num_state_variabl
 	saturation_count = 0;
 	min_residuum = 1e-5;
 	count_jacobians = 0;
+	residuum_old = 0;
 	scale_MV_inv = scale_MV.inverse();
 	scale_OV_inv = scale_OV.inverse();
 	A_pow_B_cache.setZero();
@@ -72,6 +73,14 @@ Matrix<double, 2 * mpc_control_horizon, 1> RMS_Prop_MPC::Evaluate(Matrix<double,
 	/*std::ofstream myfile;
 	myfile.open(string("jacobians")+ std::to_string(count_jacobians) + string(".csv"));
 	count_jacobians++;*/
+
+	if (residuum_old < 1e-8)
+	{
+		
+		x.setZero();
+		return x;
+	}
+
 	for (int iter = 0; iter < max_iter; iter++) {
 		///TODO: Ove tri linije izbacit
 		//deriv_wrt_u.setZero();
@@ -197,15 +206,18 @@ Matrix<double, 2 * mpc_control_horizon, 1> RMS_Prop_MPC::Evaluate(Matrix<double,
 
 
 
-		/*if ((residuum - residuum_old) > 1e-4) {
-			x = this->check_bounderies(x);
-			return x;
-		}*/
-
-
-		residuum_old = residuum;
+		
 
 	}
+
+	if ((residuum - residuum_old) > 1e-4) {
+		x.setZero();
+		return x;
+	}
+
+
+	residuum_old = residuum;
+
 
 	//myfile.close();
 	x = this->check_bounderies(x);
