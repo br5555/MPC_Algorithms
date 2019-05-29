@@ -4,12 +4,8 @@ Adjusting well known algorithams for using in MPC control
 
 ## Getting Started
 
-  * Clone project
-  * position inside cloned folder
-  * make build file
-  * position inside build file
-  * type command : cmake ..
-  * then: make .
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
 
 ### Prerequisites
 
@@ -18,21 +14,12 @@ Adjusting well known algorithams for using in MPC control
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+  * Clone project
+  * position inside cloned folder
+  * make build file
+  * position inside build file
+  * type command : cmake ..
+  * then: make .
 
 ## Running the tests
 
